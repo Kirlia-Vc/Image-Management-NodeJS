@@ -56,10 +56,12 @@ var saveToDB=function(infos,min,mid,ori, callback) {
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null,'/tmp/1234')
+        cb(null,'/tmp/uploads')
     },
     filename:function(req,file,cb){
-        cb(null,Date.now())
+	var ext=file.originalname;
+        ext=ext.substring(ext.lastIndexOf(".")+1,ext.length);
+        cb(null,Date.now().toString()+'.'+ext)
     }
 });
 var uploadMulter = multer({storage:storage});
